@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "newsbot"
+version = "0.1.0"
+description = "Daily newsletter digests via Telegram with retrieval-backed Q&A"
+readme = "spec.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn>=0.30.0",
+  "pydantic>=2.0.0",
+  "pydantic-settings>=2.0.0",
+  "apscheduler>=3.10.0",
+  "httpx>=0.27.0",
+  "python-telegram-bot>=21.0",
+  "beautifulsoup4>=4.12.0",
+  "google-api-python-client>=2.140.0",
+  "google-auth-oauthlib>=1.2.0",
+  "google-auth-httplib2>=0.2.0",
+  "chromadb>=0.5.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0.0", "pytest-asyncio>=0.24.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["newsbot*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+  "phase0: Project setup completeness",
+  "phase1: Gmail ingestion completeness",
+  "phase2: Local LLM summarizer completeness",
+  "phase3: Vector store completeness",
+  "phase4: FastAPI backend completeness",
+  "phase5: Telegram bot completeness",
+  "phase6: Scheduler completeness",
+  "phase7: End-to-end + polish completeness",
+]

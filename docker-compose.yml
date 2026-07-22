@@ -1,0 +1,16 @@
+services:
+  newsbot:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Ollama on the Mac host when Compose runs in Docker Desktop
+      LLM_BASE_URL: http://host.docker.internal:11434
+    volumes:
+      - ./credentials.json:/app/credentials.json:ro
+      - ./token.json:/app/token.json
+      - ./data:/app/data
+      - ./.env:/app/.env:ro
+    restart: unless-stopped
