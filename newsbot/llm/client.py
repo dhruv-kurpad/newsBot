@@ -24,6 +24,9 @@ class LLMClient:
                     "model": self.model,
                     "prompt": prompt,
                     "stream": False,
+                    # Cap context so llama + nomic-embed-text can coexist on GPU.
+                    "options": {"num_ctx": 8192},
+                    "keep_alive": "2m",
                 },
                 timeout=120.0,
             )

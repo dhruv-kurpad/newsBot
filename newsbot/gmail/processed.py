@@ -18,7 +18,8 @@ class ProcessedMessageStore:
         if not self.path.is_file():
             self._ids = set()
             return
-        raw = self.path.read_text(encoding="utf-8").strip()
+        # utf-8-sig strips a BOM that Windows editors / PowerShell sometimes add
+        raw = self.path.read_text(encoding="utf-8-sig").strip()
         if not raw:
             self._ids = set()
             return
